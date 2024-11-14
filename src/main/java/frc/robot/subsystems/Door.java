@@ -28,15 +28,19 @@ public class Door extends SubsystemBase {
         moveToPosition(DOOR_CLOSED_POSITION);
     }
 
-    private void moveToPosition(double targetPosition) {
+    public void moveToPosition(double targetPosition) {
         // Calculate motor power based on target position and current position
-        double power = pidController.calculate(door.getPosition(), targetPosition);
-        door.set(power);
+        
+        door.set(pidSet());
 
         // Stop the motor when it's close enough to the target
         if (pidController.atSetpoint()) {
             door.stopMotor();
         }
+    }
+    public double pidSet(){
+        double power = pidController.calculate(door.getPosition(), targetPosition);
+        return power;
     }
 
     @Override
