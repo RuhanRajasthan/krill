@@ -4,11 +4,6 @@ import frc.robot.Constants;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
-//public class Door extends SubsystemBase{
-  //  CCSparkMax door = new CCSparkMax ("door", "d", Constants.MotorConstants.DOOR, MotorType.kBrushless, IdleMode.kBrake, Constants.MotorConstants.DOOR_REVERSE);
-
-//}
-
 
 public class Door extends SubsystemBase {
     private final CCSparkMax door;
