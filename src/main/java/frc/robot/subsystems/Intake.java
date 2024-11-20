@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.helpers.CCSparkMax;
 
 public class Intake extends SubsystemBase{
@@ -11,4 +12,12 @@ public void motorIn(){
 }
 public void motorOut(){
     outtakeMotor.set(-0.5);
+}
+public Command intakeIn(){
+    return new RunCommand(() ->
+    {motorIn();} , this);
+}
+public Command intakeOut(){
+    return new RunCommand(() ->
+    {motorOut();} , this);
 }
