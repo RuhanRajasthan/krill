@@ -41,6 +41,11 @@ public final class Constants {
     public static final int shoot2 = 10;
   }
 
+  public static class MechanismPositions{
+    public static final double DOOR_UP_POSITION = 0.0;
+    public static final double DOOR_DOWN_POSITION = (150.0/7.0 *(1/3)); //assuming it would be about 120 degrees
+  }
+
   public static class ConversionConstants {
     public static final double WHEEL_CIRCUMFRENCE = Units.inchesToMeters(4*Math.PI);
     // 150/7 rotations of the turn motor to one rotation of the wheel
@@ -62,9 +67,5 @@ public final class Constants {
                 / 60.0;
 
   }
-
-  public static class MechanismPositions(){
-    public static final double DOOR_UP_POSITION = 0.0;
-    public static final double DOOR_DOWN_POSITION = (150.0/7.0 *(1/3)); //assuming it would be about 120 degrees
-  }
 }
+  

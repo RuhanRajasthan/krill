@@ -1,3 +1,5 @@
+package frc.robot.subsystems;
+
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -9,15 +11,16 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 
 
 public class Door extends SubsystemBase {
-    private final CCSparkMax door;
-    private final PIDController pidController;
+    public CCSparkMax  door = new CCSparkMax("door", "d", Constants.MotorConstants.DOOR, MotorType.kBrushless, IdleMode.kBrake, Constants.MotorConstants.DOOR_REVERSE);
+    private  PIDController pidController;
+    private boolean isUp;
 
     // Encoder target values for open and closed positions
     
 
     public Door() {
         // Initialize motor and PID controller
-        door = new CCSparkMax("door", "d", Constants.MotorConstants.DOOR, MotorType.kBrushless, IdleMode.kBrake, Constants.MotorConstants.DOOR_REVERSE);
+       isUp = true;
         pidController = new PIDController(0.1, 0, 0); // Set PID , adjust as needed
         pidController.setTolerance(1.0); //tolerance
     }
@@ -46,10 +49,16 @@ public class Door extends SubsystemBase {
     }
 
     public Command doorUp(){
+        isUp = true;
         return this.run(()->openDoor());
     }
     public Command doorDown(){
+        isUp = false;
         return this.run(()->closeDoor());
+    }
+
+    public boolean isUp(){
+        return isUp;
     }
 
     @Override

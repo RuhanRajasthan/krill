@@ -1,4 +1,4 @@
-package frc.controlschemes;
+package frc.robot.controlschemes;
 
 import static edu.wpi.first.wpilibj2.command.Commands.parallel;
 import static edu.wpi.first.wpilibj2.command.Commands.runOnce;
@@ -41,17 +41,21 @@ public class MechanismScheme implements ControlScheme {
 
         public static void configureButtons(int port, Door door) {
 
-                Command doorDown = (door.doorRun(Constants.MechanismPositions.DOOR_DOWN_POSITION));
-                Command doorUp  = (door.doorRun(Constants.MechanismPositions.DOOR_UP_POSITION));
+                
+                
                 
 
                 // Command targetSubWooferShoot =
                 // sequence(wrist.wristToSetpoint(Constants.MechanismPositions.WRIST_SHOOT),
                 // autoShoot).withName("Subwoofer Shoot");
 
-                controller.rightBumper().onTrue(doorDown);
-                controller.leftBumper().onTrue(doorUp);
-
+                if (door.isUp()){
+                    controller.rightBumper().onTrue(door.doorUp());
+                }
+                else
+                {             
+                    controller.rightBumper().onTrue(door.doorUp());
+                }
                 
         }
 
