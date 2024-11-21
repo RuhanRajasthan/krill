@@ -1,8 +1,5 @@
 package frc.robot.subsystems;
-
-public class DriveTrain extends SubsystemBase {
-    
-    package frc.robot.subsystems;
+ 
 
 import java.util.function.DoubleSupplier;
 import edu.wpi.first.math.filter.SlewRateLimiter;
@@ -30,7 +27,7 @@ public class DriveTrain extends SubsystemBase{
         backDifferentialDrive.arcadeDrive(moveSpeed, turnSpeed);
     }
     public Command drive (double moveSpeed, double turnSpeed){
-        this.run (()-> difDrive(moveSpeed, turnSpeed));
+        return this.run (()-> difDrive(moveSpeed, turnSpeed));
     }
 }
-}
+

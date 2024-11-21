@@ -1,3 +1,6 @@
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.helpers.CCSparkMax;
 import frc.robot.Constants;
@@ -10,8 +13,7 @@ public class Door extends SubsystemBase {
     private final PIDController pidController;
 
     // Encoder target values for open and closed positions
-    private static final double DOOR_CLOSED_POSITION = 0.0;
-    private static final double DOOR_OPEN_POSITION = 120.0;
+    
 
     public Door() {
         // Initialize motor and PID controller
@@ -21,26 +23,33 @@ public class Door extends SubsystemBase {
     }
 
     public void openDoor() {
-        moveToPosition(DOOR_OPEN_POSITION);
+        moveToPosition(Constants.MechanismPositions.DOOR_UP_POSITION);
     }
 
     public void closeDoor() {
-        moveToPosition(DOOR_CLOSED_POSITION);
+        moveToPosition(Constants.MechanismPositions.DOOR_DOWN_POSITION);
     }
 
     public void moveToPosition(double targetPosition) {
         // Calculate motor power based on target position and current position
         
-        door.set(pidSet());
+        door.set(pidSet(targetPosition));
 
         // Stop the motor when it's close enough to the target
         if (pidController.atSetpoint()) {
             door.stopMotor();
         }
     }
-    public double pidSet(){
+    public double pidSet(double targetPosition){
         double power = pidController.calculate(door.getPosition(), targetPosition);
         return power;
+    }
+
+    public Command doorUp(){
+        return this.run(()->openDoor());
+    }
+    public Command doorDown(){
+        return this.run(()->closeDoor());
     }
 
     @Override
