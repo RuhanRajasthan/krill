@@ -30,15 +30,10 @@ public final class Constants {
     public static boolean BACK_LEFT_REVERSE =false;
     public static final int BACK_RIGHT = 3;
     public static boolean BACK_RIGHT_REVERSE = false;
-    public static final int DOOR = 4;
+    public static final int DOOR = 5;
     public static boolean DOOR_REVERSE = false;
     public static double DOOR_ENCODER = 0.0;
-    public static final int intake1 = 5;
-    public static final int intake2 = 6;
-    public static final int screw = 7;
-    public static final int indexer = 8;
-    public static final int shoot1 = 9;
-    public static final int shoot2 = 10;
+    
   }
 
   public static class MechanismPositions{
