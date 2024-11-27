@@ -50,11 +50,11 @@ public class MechanismScheme implements ControlScheme {
                 // autoShoot).withName("Subwoofer Shoot");
 
                 if (door.isUp()){
-                    controller.rightBumper().onTrue(door.doorUp());
+                    controller.a().onTrue(door.doorDown());
                 }
                 else
                 {             
-                    controller.rightBumper().onTrue(door.doorUp());
+                    controller.a().onTrue(door.doorUp());
                 }
                 
         }

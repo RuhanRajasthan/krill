@@ -23,8 +23,15 @@ public class DriveTrain extends SubsystemBase{
     DifferentialDrive frontDifferentialDrive = new DifferentialDrive (frontLeft, frontRight);
     DifferentialDrive backDifferentialDrive = new DifferentialDrive(backLeft, backRight);
     public void difDrive (double moveSpeed, double turnSpeed){
-        frontDifferentialDrive.arcadeDrive(moveSpeed, turnSpeed);
-        backDifferentialDrive.arcadeDrive(moveSpeed, turnSpeed);
+        if (turnSpeed>0.75||turnSpeed<-0.75){
+        frontDifferentialDrive.arcadeDrive(0.5*moveSpeed, 0.5*turnSpeed);
+        backDifferentialDrive.arcadeDrive(0.5*moveSpeed, 0.5*turnSpeed);
+        }
+        else {
+            frontDifferentialDrive.arcadeDrive(0.5*moveSpeed, 0);
+        backDifferentialDrive.arcadeDrive(0.5*moveSpeed, 0);
+
+        }
     }
     public Command drive (double moveSpeed, double turnSpeed){
         return this.run (()-> difDrive(moveSpeed, turnSpeed));

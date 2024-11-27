@@ -33,7 +33,7 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    MechanismScheme.configure(door, 1);
+    MechanismScheme.configure(door, 0);
   DriveScheme.configure(driveTrain,0);
     // Configure the trigger bindings
     // configureBindings();
@@ -68,4 +68,8 @@ public class RobotContainer {
 
     
   // }
+
+  public void autonomousBoi(){
+
+  }
 }

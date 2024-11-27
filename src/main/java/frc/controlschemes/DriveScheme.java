@@ -44,7 +44,7 @@ public class DriveScheme implements ControlScheme {
      */
     private static void configureButtons(DriveTrain driveTrain, int port) {
   RunCommand VroomDefaultVroom = new RunCommand(()->{
-      driveTrain.drive(OI.axis(0,ControlMap.L_JOYSTICK_VERTICAL), OI.axis(0,ControlMap.R_JOYSTICK_HORIZONTAL));
+      driveTrain.drive(controller.getLeftY(), controller.getRightX());
 
     }, driveTrain);
 

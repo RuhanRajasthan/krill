@@ -20,8 +20,8 @@ public class Door extends SubsystemBase {
 
     public Door() {
         // Initialize motor and PID controller
-       isUp = true;
-        pidController = new PIDController(0.1, 0, 0); // Set PID , adjust as needed
+        isUp = true;
+        pidController = new PIDController(0.6, 0, 0); // Set PID , adjust as needed
         pidController.setTolerance(1.0); //tolerance
     }
 
