@@ -36,5 +36,9 @@ public class DriveTrain extends SubsystemBase{
     public Command drive (double moveSpeed, double turnSpeed){
         return this.run (()-> difDrive(moveSpeed, turnSpeed));
     }
+
+    public Command driveForTime(double moveSpeed, double turnSpeed, double time){
+        return this.run(()-> difDrive(moveSpeed,turnSpeed)).withTimeout(time);
+    }
 }
 

@@ -11,7 +11,7 @@ import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.controlschemes.DriveScheme;
+import frc.robot.controlschemes.DriveScheme;
 import frc.robot.controlschemes.MechanismScheme;
 import frc.robot.subsystems.Door;
 import frc.robot.subsystems.DriveTrain;
@@ -34,9 +34,17 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     MechanismScheme.configure(door, 0);
-  DriveScheme.configure(driveTrain,0);
+  DriveScheme.configure(driveTrain, door,0);
     // Configure the trigger bindings
     // configureBindings();
+  }
+
+  public DriveTrain getDriveTrain(){
+    return driveTrain;
+  }
+
+  public Door getDoor(){
+    return door;
   }
 
   /**

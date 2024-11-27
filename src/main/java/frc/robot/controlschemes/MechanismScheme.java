@@ -17,7 +17,7 @@ import frc.robot.subsystems.DriveTrain;
 
 public class MechanismScheme implements ControlScheme {
         private static CommandXboxController controller;
-        public static BooleanSupplier inAmpPosition = () -> false;
+        
 
        
         // public static CommandXboxController controller;
@@ -56,6 +56,8 @@ public class MechanismScheme implements ControlScheme {
                 {             
                     controller.a().onTrue(door.doorUp());
                 }
+
+                controller.rightTrigger().onTrue(door.halt());
                 
         }
 

@@ -40,7 +40,7 @@ public class Door extends SubsystemBase {
 
         // Stop the motor when it's close enough to the target
         if (pidController.atSetpoint()) {
-            door.stopMotor();
+            door.set(0.0);
         }
     }
     public double pidSet(double targetPosition){
@@ -59,6 +59,10 @@ public class Door extends SubsystemBase {
 
     public boolean isUp(){
         return isUp;
+    }
+
+    public Command halt (){
+        return this.runOnce(()->{});
     }
 
     @Override
