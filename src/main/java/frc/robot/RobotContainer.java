@@ -35,6 +35,7 @@ public class RobotContainer {
   public RobotContainer() {
     MechanismScheme.configure(door, 0);
   DriveScheme.configure(driveTrain, door,0);
+  
     // Configure the trigger bindings
     // configureBindings();
   }
@@ -46,6 +47,8 @@ public class RobotContainer {
   public Door getDoor(){
     return door;
   }
+
+  
 
   /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the
@@ -71,11 +74,11 @@ public class RobotContainer {
   //  *
   //  * @return the command to run in autonomous
   //  */
-  // public Command getAutonomousCommand() {
-  //   // An example command will be run in autonomous
-
+  public Command getAutonomousCommand() {
+      return Autos.forwardAndDrop(driveTrain, door);
+      // return Autos.forward(driveTrain);
     
-  // }
+  }
 
   public void autonomousBoi(){
 
