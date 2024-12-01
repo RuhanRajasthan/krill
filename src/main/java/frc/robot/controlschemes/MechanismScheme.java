@@ -58,6 +58,9 @@ public class MechanismScheme implements ControlScheme {
                 }
 
                 controller.rightTrigger().onTrue(door.halt());
+
+                controller.rightBumper().whileTrue(door.manualUp());
+                controller.leftBumper().whileTrue(door.manualDown());
                 
         }
 

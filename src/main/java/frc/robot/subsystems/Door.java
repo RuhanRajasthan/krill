@@ -43,18 +43,49 @@ public class Door extends SubsystemBase {
             door.set(0.0);
         }
     }
+
+    public boolean atGoal(double goal){
+        if (pidController.atSetpoint()||(door.getPosition()>goal-0.25&&door.getPosition()<goal+0.25)){
+        // if (door.getPosition()>goal-0.25 && door.getPosition()<goal+0.25){
+            return true;
+        }
+        else
+            return false;
+    }
     public double pidSet(double targetPosition){
         double power = pidController.calculate(door.getPosition(), targetPosition);
         return power;
     }
 
+    public void manualDoorUp(){
+        door.set(0.6); //maybe this is negative idk
+    }
+    public void manualDoorDown(){
+        door.set(-0.6); //maybe this is position idk
+    }
+
     public Command doorUp(){
         isUp = true;
-        return this.run(()->openDoor());
+        //added the until because maybe the thing is not running for as long
+        return this.run(()->openDoor()).until(()-> atGoal(Constants.MechanismPositions.DOOR_DOWN_POSITION));
+        // return this.run(()-> openDoor());
     }
     public Command doorDown(){
         isUp = false;
-        return this.run(()->closeDoor());
+        return this.run(()->closeDoor()).until(()-> atGoal(Constants.MechanismPositions.DOOR_UP_POSITION));
+        // return this.run(()->closeDoor());
+    }
+
+    public Command manualUp(){
+        return this.run(()-> manualDoorUp());
+    }
+
+    public Command maunalDownForTime(double time){
+        return this.run(()-> manualDoorDown()).withTimeout(time);
+    }
+
+    public Command manualDown(){
+        return this.run(()-> manualDoorDown());
     }
 
     public boolean isUp(){
