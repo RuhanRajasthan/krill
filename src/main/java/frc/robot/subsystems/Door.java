@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.helpers.CCSparkMax;
 import frc.robot.Constants;
@@ -21,16 +22,16 @@ public class Door extends SubsystemBase {
     public Door() {
         // Initialize motor and PID controller
         isUp = true;
-        pidController = new PIDController(0.6, 0, 0); // Set PID , adjust as needed
+        pidController = new PIDController(0.1, 0, 0); // Set PID , adjust as needed
         pidController.setTolerance(1.0); //tolerance
     }
 
     public void openDoor() {
-        moveToPosition(Constants.MechanismPositions.DOOR_UP_POSITION);
+        door.set(0.25);
     }
 
     public void closeDoor() {
-        moveToPosition(Constants.MechanismPositions.DOOR_DOWN_POSITION);
+        door.set(-0.25);
     }
 
     public void moveToPosition(double targetPosition) {
@@ -58,34 +59,40 @@ public class Door extends SubsystemBase {
     }
 
     public void manualDoorUp(){
-        door.set(0.6); //maybe this is negative idk
+        door.set(0.2); //maybe this is negative idk
+        if (door.getPosition()>0){
+            door.set(0);
+        }
     }
     public void manualDoorDown(){
-        door.set(-0.6); //maybe this is position idk
+        door.set(-0.2); //maybe this is position idk
+        if (door.getPosition()>0){
+            door.set(0);
+        }
     }
 
     public Command doorUp(){
         isUp = true;
         //added the until because maybe the thing is not running for as long
-        return this.run(()->openDoor()).until(()-> atGoal(Constants.MechanismPositions.DOOR_DOWN_POSITION));
+        return this.runEnd(()->openDoor(), ()-> halt()).withTimeout(0.5);
         // return this.run(()-> openDoor());
     }
     public Command doorDown(){
         isUp = false;
-        return this.run(()->closeDoor()).until(()-> atGoal(Constants.MechanismPositions.DOOR_UP_POSITION));
+        return this.runEnd(()->closeDoor(), ()-> halt()).withTimeout(0.5);
         // return this.run(()->closeDoor());
     }
 
     public Command manualUp(){
-        return this.run(()-> manualDoorUp());
+        return this.startEnd(()-> manualDoorUp(),()->halt());
     }
 
     public Command maunalDownForTime(double time){
-        return this.run(()-> manualDoorDown()).withTimeout(time);
+        return this.runEnd(()-> manualDoorDown(),()-> halt()).withTimeout(time);
     }
 
     public Command manualDown(){
-        return this.run(()-> manualDoorDown());
+        return this.startEnd(()-> manualDoorDown(),()->halt());
     }
 
     public boolean isUp(){
@@ -93,7 +100,7 @@ public class Door extends SubsystemBase {
     }
 
     public Command halt (){
-        return this.runOnce(()->{});
+        return new InstantCommand(()->{door.set(0);}, this);
     }
 
     @Override
